@@ -1,24 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className="main">
+        <div className="logo">ReactROS</div>
+        <div className="input-group mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Type ROSBridge URL"
+          />
+          <div className="input-group-append">
+            <button
+              className="btn btn-primary"
+              type="button"
+              id="button-addon2"
+            >
+              Connect
+            </button>
+          </div>
+        </div>
+        <div
+          class="btn-group controler mr-2"
+          role="group"
+          aria-label="First group"
         >
-          Learn React
-        </a>
-      </header>
+          <button type="button" class="btn btn-secondary">
+            ▲
+          </button>
+          <div className="remaining-controls">
+            <button type="button" class="btn btn-secondary">
+              ◀
+            </button>
+            <button type="button" class="btn btn-secondary">
+              ▼
+            </button>
+            <button type="button" class="btn btn-secondary">
+              ▶
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
