@@ -7,39 +7,17 @@ function App() {
       <div className="main">
         <div className="logo">ReactROS</div>
         <div className="input-group mb-3">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Type ROSBridge URL"
-          />
+          <input type="text" className="form-control" placeholder="Type ROSBridge URL"/>
           <div className="input-group-append">
-            <button
-              className="btn btn-primary"
-              type="button"
-              id="button-addon2"
-            >
-              Connect
-            </button>
+            <button className="btn btn-primary" type="button" id="button-addon2">Connect</button>
           </div>
         </div>
-        <div
-          class="btn-group controler mr-2"
-          role="group"
-          aria-label="First group"
-        >
-          <button type="button" class="btn btn-secondary">
-            ▲
-          </button>
+        <div className="controller">
+          <button type="button" className="btn btn-secondary mdi mdi-chevron-up m-1"/>
           <div className="remaining-controls">
-            <button type="button" class="btn btn-secondary">
-              ◀
-            </button>
-            <button type="button" class="btn btn-secondary">
-              ▼
-            </button>
-            <button type="button" class="btn btn-secondary">
-              ▶
-            </button>
+            <button type="button" className="btn btn-secondary mdi mdi-chevron-left"/>
+            <button type="button" className="btn btn-secondary mdi mdi-chevron-down mx-1"/>
+            <button type="button" className="btn btn-secondary mdi mdi-chevron-right"/>
           </div>
         </div>
       </div>
