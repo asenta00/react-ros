@@ -8,37 +8,40 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      url: '',
-      connected: false
+      url: 'ws://localhost:9090',
+      connected: false,
+      error: false
     }
   }
 
   ROSConnect = () => {
     try {
-      this.ros = new ROSLIB.Ros({url : this.state.url});
-      this.ros.on('connection', () => {
+      const ros = new ROSLIB.Ros({url : this.state.url});
+      ros.on('connection', () => {
         console.log('Connected to websocket server.');
-        this.setState({ connected:true })
+        this.setState({ connected:true });
+        this.cmdVel = new ROSLIB.Topic({
+          ros: ros,
+          name : 'turtle1/cmd_vel',
+          messageType : 'geometry_msgs/Twist'
+        });
       });
       this.ros.on('error', (error) => {
         console.log('Error connecting to websocket server: ', error);
+        this.setState({ error: true });
       });
     }
-    catch {}
+    catch {
+      console.log('Error connecting to websocket server');
+      this.setState({ error:true });
+    }
   }
 
   ROSMove = (direction) => {
-    console.log(direction);
     const msg = {
       linear: { x: 0.0, y: 0.0, z: 0.0 },
       angular: { x: 0.0, y: 0.0, z: 0.0 },
     }
-
-    const cmdVel = new ROSLIB.Topic({
-      ros: this.ros,
-      name : '/cmd_vel',
-      messageType : 'geometry_msgs/Twist'
-    });
 
     switch(direction){
       case "up": 
@@ -48,22 +51,21 @@ class App extends Component {
         msg.linear.x = -2.0; 
         break;
       case "left":
-        msg.angular.x = 2.0
+        msg.angular.z = 2.0
         break;
       case "right":
-        msg.angular.x = -2.0
+        msg.angular.z = -2.0
         break;
       default:
     }
 
     const twist = new ROSLIB.Message(msg);
-    cmdVel.publish(twist);
+    this.cmdVel.publish(twist);
   }
 
   changeUrl = (e) => this.setState({url: e.target.value});
 
   render() {
-    console.log(this.state.url);
     return (
       <div className="App">
         <div className="main">
@@ -71,8 +73,11 @@ class App extends Component {
           <div className="logo">ReactROS</div>
           {this.state.connected ? 
             <Controller move={this.ROSMove}/>:
-            <UrlForm changeUrl={this.changeUrl} ROSConnect={this.ROSConnect}/>
+            <UrlForm url={this.state.url} changeUrl={this.changeUrl} ROSConnect={this.ROSConnect}/>
           }
+          {this.state.error && (<div className="alert alert-danger" role="alert">
+            Error connecting to websocket server
+          </div>)}
         </div>
       </div>
     );
