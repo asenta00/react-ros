@@ -30,7 +30,7 @@ class App extends Component {
     console.log(direction);
     const msg = {
       linear: { x: 0.0, y: 0.0, z: 0.0 },
-      agular: { x: 0.0, y: 0.0, z: 0.0 },
+      angular: { x: 0.0, y: 0.0, z: 0.0 },
     }
 
     const cmdVel = new ROSLIB.Topic({
