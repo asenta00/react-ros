@@ -22,14 +22,19 @@ class App extends Component {
         this.setState({ connected:true });
         this.ROSTopic(ros);
       });
-      ros.on('error', (error) => {
-        console.log('Error connecting to websocket server: ', error);
-        this.setState({ error: true });
+      ros.on('error', () => {
+        const error = 'Error connecting to websocket server.'
+        console.log(error);
+        this.setState({ error });
+      });
+      ros.on('close', () => {
+        console.log('Connection to websocket server closed.');
       });
     }
     catch {
-      console.log('Error connecting to websocket server');
-      this.setState({ error:true });
+      const error = 'Failed to construct websocket. The URL is invalid.'
+      console.log(error);
+      this.setState({ error });
     }
   }
 
@@ -73,14 +78,14 @@ class App extends Component {
     return (
       <div className="App">
         <div className="main">
-        {/* <button type="button" className="btn btn-secondary" onClick={() => this.setState({connected:!this.state.connected})}>mock connection</button> */}
+        <button type="button" className="btn btn-secondary" onClick={() => this.setState({connected:!this.state.connected})}>mock connection</button>
           <div className="logo">ReactROS</div>
           {this.state.connected ? 
             <Controller move={this.ROSMove}/>:
             <UrlForm url={this.state.url} changeUrl={this.changeUrl} ROSConnect={this.ROSConnect}/>
           }
           {this.state.error && (<div className="alert alert-danger" role="alert">
-            Error connecting to websocket server
+            {this.state.error}
           </div>)}
         </div>
       </div>
