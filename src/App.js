@@ -20,13 +20,9 @@ class App extends Component {
       ros.on('connection', () => {
         console.log('Connected to websocket server.');
         this.setState({ connected:true });
-        this.cmdVel = new ROSLIB.Topic({
-          ros: ros,
-          name : 'turtle1/cmd_vel',
-          messageType : 'geometry_msgs/Twist'
-        });
+        this.ROSTopic(ros);
       });
-      this.ros.on('error', (error) => {
+      ros.on('error', (error) => {
         console.log('Error connecting to websocket server: ', error);
         this.setState({ error: true });
       });
@@ -35,6 +31,14 @@ class App extends Component {
       console.log('Error connecting to websocket server');
       this.setState({ error:true });
     }
+  }
+
+  ROSTopic = (ros) => {
+    this.cmdVel = new ROSLIB.Topic({
+      ros: ros,
+      name : 'turtle1/cmd_vel',
+      messageType : 'geometry_msgs/Twist'
+    });
   }
 
   ROSMove = (direction) => {
