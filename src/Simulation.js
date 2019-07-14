@@ -5,8 +5,6 @@ class Simulation extends Component {
   constructor(props) {
     super(props);
     this.state={
-      x: 5.5,
-      y: 5.5
     }
   }
 
