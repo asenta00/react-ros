@@ -95,13 +95,15 @@ class App extends Component {
         <div className="main">
           <div className="logo">ReactROS</div>
           {this.state.connected ? 
-            <Controller move={this.ROSMove}/>:
+            <div>
+              <Controller move={this.ROSMove}/>
+              <Simulation x={this.state.x} y={this.state.y} />
+            </div> :
             <UrlForm url={this.state.url} changeUrl={this.changeUrl} ROSConnect={this.ROSConnect}/>
           }
           {this.state.error && (<div className="alert alert-danger" role="alert">
             {this.state.error}
           </div>)}
-          <Simulation x={this.state.x} y={this.state.y} />
         </div>
       </div>
     );

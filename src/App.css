@@ -26,7 +26,7 @@
   background: blue;
   border: 1px solid rgb(0, 0, 99);
   overflow: hidden;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 
 .turtle {
