@@ -12,8 +12,8 @@ class App extends Component {
       url: 'ws://localhost:9090',
       connected: false,
       error: false,
-      x: 0,
-      y: 0
+      x: 5.5,
+      y: 5.5
     }
   }
 
