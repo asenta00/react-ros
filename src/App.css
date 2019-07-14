@@ -18,3 +18,21 @@
 .controller {
   display: block;
 }
+
+.simulation {
+  position: relative;
+  width: 480px;
+  height: 320px;
+  background: blue;
+  border-radius: 5% solid blue;
+}
+
+.turtle {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-left: -12px;
+  margin-bottom: -12px;
+  background: white;
+}

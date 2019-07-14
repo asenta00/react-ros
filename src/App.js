@@ -3,6 +3,7 @@ import "./App.css";
 import ROSLIB from 'roslib';
 import Controller from "./Controller";
 import UrlForm from "./UrlForm";
+import Simulation from "./Simulation";
 
 class App extends Component {
   constructor() {
@@ -10,7 +11,9 @@ class App extends Component {
     this.state = {
       url: 'ws://localhost:9090',
       connected: false,
-      error: false
+      error: false,
+      x: 0,
+      y: 0
     }
   }
 
@@ -51,8 +54,10 @@ class App extends Component {
       messageType : 'turtlesim/Pose'
     });
 
-    this.listener.subscribe(function(message) {
-      console.log(message.data);
+    this.listener.subscribe((message) => {
+      console.log(message);
+      const { x, y } = message;
+      this.setState({ x, y });
     });
   }
 
@@ -96,6 +101,7 @@ class App extends Component {
           {this.state.error && (<div className="alert alert-danger" role="alert">
             {this.state.error}
           </div>)}
+          <Simulation x={this.state.x} y={this.state.y} />
         </div>
       </div>
     );
