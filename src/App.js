@@ -44,6 +44,16 @@ class App extends Component {
       name : 'turtle1/cmd_vel',
       messageType : 'geometry_msgs/Twist'
     });
+
+    this.listener = new ROSLIB.Topic({
+      ros : ros,
+      name : 'turtle1/pose',
+      messageType : 'turtlesim/Pose'
+    });
+
+    this.listener.subscribe(function(message) {
+      console.log(message.data);
+    });
   }
 
   ROSMove = (direction) => {
@@ -78,7 +88,6 @@ class App extends Component {
     return (
       <div className="App">
         <div className="main">
-        <button type="button" className="btn btn-secondary" onClick={() => this.setState({connected:!this.state.connected})}>mock connection</button>
           <div className="logo">ReactROS</div>
           {this.state.connected ? 
             <Controller move={this.ROSMove}/>:
