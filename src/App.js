@@ -12,8 +12,8 @@ class App extends Component {
       url: 'ws://localhost:9090',
       connected: false,
       error: false,
-      x: 10.5,
-      y: 10.5
+      x: 5.5,
+      y: 5.5
     }
   }
 
@@ -55,9 +55,9 @@ class App extends Component {
     });
 
     this.listener.subscribe((message) => {
-      console.log(message);
       const { x, y } = message;
-      this.setState({ x, y });
+      if(this.state.x !== x) this.setState({ x });
+      if(this.state.y !== y) this.setState({ y });
     });
   }
 
